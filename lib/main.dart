@@ -10,7 +10,15 @@ void main() async {
   await HabitDatabase.initialize();
   await HabitDatabase().saveFirstLaunchDate();
 
-  runApp(ChangeNotifierProvider(create: (context) => ThemeProvider(), child: MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => HabitDatabase()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
