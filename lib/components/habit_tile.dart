@@ -77,43 +77,46 @@ class HabitTile extends HookWidget {
       );
     }
 
-    return Slidable(
-      endActionPane: ActionPane(
-        motion: StretchMotion(),
-        children: [
-          SlidableAction(
-            onPressed: (context) => editHabit(habit),
-            backgroundColor: Colors.grey.shade800,
-            icon: Icons.settings,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          SlidableAction(
-            onPressed: (context) => deleteHabit(habit),
-            backgroundColor: Colors.red,
-            icon: Icons.delete,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ],
-      ),
-      child: GestureDetector(
-        onTap: () => context.read<HabitDatabase>().updateHabitCompletion(habit.id, !isCompletedToday),
-        child: Container(
-          decoration: BoxDecoration(
-            color: isCompletedToday ? Colors.green : Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: EdgeInsets.all(12),
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-          child: ListTile(
-            title: Text(habit.name),
-            leading: Checkbox.adaptive(
-              activeColor: Colors.green,
-              value: isCompletedToday,
-              onChanged: (value) {
-                if (value != null) {
-                  context.read<HabitDatabase>().updateHabitCompletion(habit.id, value);
-                }
-              },
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+      child: Slidable(
+        endActionPane: ActionPane(
+          motion: StretchMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) => editHabit(habit),
+              backgroundColor: Colors.grey.shade800,
+              icon: Icons.settings,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            SlidableAction(
+              onPressed: (context) => deleteHabit(habit),
+              backgroundColor: Colors.red,
+              icon: Icons.delete,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ],
+        ),
+        child: GestureDetector(
+          onTap: () => context.read<HabitDatabase>().updateHabitCompletion(habit.id, !isCompletedToday),
+          child: Container(
+            decoration: BoxDecoration(
+              color: isCompletedToday ? Colors.green : Theme.of(context).colorScheme.secondary,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: EdgeInsets.all(12),
+
+            child: ListTile(
+              title: Text(habit.name),
+              leading: Checkbox.adaptive(
+                activeColor: Colors.green,
+                value: isCompletedToday,
+                onChanged: (value) {
+                  if (value != null) {
+                    context.read<HabitDatabase>().updateHabitCompletion(habit.id, value);
+                  }
+                },
+              ),
             ),
           ),
         ),

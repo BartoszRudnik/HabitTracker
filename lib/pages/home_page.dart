@@ -20,7 +20,11 @@ class HomePage extends HookWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: MyDrawer(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       floatingActionButton: AddHabitButton(),
       body: HabitList(),
     );
